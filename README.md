@@ -1,5 +1,15 @@
 # AgentRun Python SDK
 
+<div align="center">
+
+[![PyPI version](https://img.shields.io/pypi/v/agentrun-sdk.svg)](https://pypi.org/project/agentrun-sdk/)
+[![License](https://img.shields.io/github/license/Serverless-Devs/agentrun-sdk-python.svg)](https://github.com/Serverless-Devs/agentrun-sdk-python/blob/main/LICENSE)
+[![Documentation](https://img.shields.io/badge/docs-agent.run-blue.svg)](https://docs.agent.run)
+[![GitHub stars](https://img.shields.io/github/stars/Serverless-Devs/agentrun-sdk-python.svg?style=social)](https://github.com/Serverless-Devs/agentrun-sdk-python)
+[![GitHub issues](https://img.shields.io/github/issues/Serverless-Devs/agentrun-sdk-python.svg)](https://github.com/Serverless-Devs/agentrun-sdk-python/issues)
+
+</div>
+
 AgentRun Python SDK 是阿里云 AgentRun 服务的 Python 客户端库，提供简洁易用的 API 来管理 AI Agent 运行时环境。
 
 ## ✨ 特性
