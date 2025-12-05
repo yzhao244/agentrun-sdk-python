@@ -30,20 +30,20 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Get latest test version and calculate next version
+    - name: Get latest version from PyPI and calculate next version
       id: version
       run: |
-        # 获取所有 agentrun-inner-test-v* 的 tags，找到最新版本
-        LATEST_TAG=$(git tag -l "agentrun-inner-test-v*" | sort -V | tail -n 1)
+        # 从 PyPI 获取 agentrun-inner-test 的最新版本
+        PYPI_RESPONSE=$(curl -s https://pypi.org/pypi/agentrun-inner-test/json 2>/dev/null || echo "")
         
-        if [ -z "$LATEST_TAG" ]; then
-          # 如果没有找到任何 tag，从 0.0.0 开始
+        if [ -z "$PYPI_RESPONSE" ] || echo "$PYPI_RESPONSE" | grep -q "Not Found"; then
+          # 如果包不存在，从 0.0.0 开始
           CURRENT_VERSION="0.0.0"
-          echo "No existing test tags found, starting from 0.0.0"
+          echo "Package not found on PyPI, starting from 0.0.0"
         else
-          # 从 tag 中提取版本号
-          CURRENT_VERSION="${LATEST_TAG#agentrun-inner-test-v}"
-          echo "Latest test tag: $LATEST_TAG (version: $CURRENT_VERSION)"
+          # 从 PyPI 响应中提取最新版本
+          CURRENT_VERSION=$(echo "$PYPI_RESPONSE" | python3 -c "import sys, json; print(json.load(sys.stdin)['info']['version'])")
+          echo "Latest version on PyPI: $CURRENT_VERSION"
         fi
         
         # 解析版本号
