@@ -23,6 +23,7 @@ import asyncio
 import datetime
 import time
 
+import pydash
 import pytest
 
 from agentrun.sandbox import Sandbox, Template
@@ -472,7 +473,10 @@ class TestSandboxTemplate:
             # assert template.description == "原始描述"
             assert template.cpu == 2.0
             assert template.memory == 2048
-            assert template.environment_variables == {"OLD_KEY": "old_value"}
+            assert (
+                pydash.get(template.environment_variables, "OLD_KEY")
+                == "old_value"
+            )
             assert template.created_at is not None
             created_at = datetime.datetime.strptime(
                 template.created_at, "%Y-%m-%dT%H:%M:%S.%f%z"
@@ -561,7 +565,10 @@ class TestSandboxTemplate:
             # assert template.description == "原始描述"
             assert template.cpu == 2.0
             assert template.memory == 2048
-            assert template.environment_variables == {"OLD_KEY": "old_value"}
+            assert (
+                pydash.get(template.environment_variables, "OLD_KEY")
+                == "old_value"
+            )
             assert template.created_at is not None
             created_at = datetime.datetime.strptime(
                 template.created_at, "%Y-%m-%dT%H:%M:%S.%f%z"

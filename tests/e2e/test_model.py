@@ -28,7 +28,7 @@ import datetime
 import os
 import time
 
-from pydantic_ai import ModelResponse
+from litellm.types.utils import ModelResponse
 import pydash
 import pytest
 
