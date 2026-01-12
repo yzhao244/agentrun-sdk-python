@@ -337,19 +337,6 @@ class TemplateInput(BaseModel):
                     f"the current disk size is {self.disk_size}"
                 )
 
-        if (
-            self.template_type == TemplateType.CODE_INTERPRETER
-            or self.template_type == TemplateType.AIO
-        ):
-            if (
-                self.network_configuration
-                and self.network_configuration.network_mode
-                == TemplateNetworkMode.PRIVATE
-            ):
-                raise ValueError(
-                    "when template_type is CODE_INTERPRETER，"
-                    "network_mode cannot be PRIVATE"
-                )
         return self
 
 
