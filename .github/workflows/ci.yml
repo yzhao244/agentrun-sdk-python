@@ -26,14 +26,6 @@ jobs:
       run: |
         make setup PYTHON_VERSION=${{ matrix.python-version }}
 
-    - name: Run type check (mypy)
-      run: |
-        make mypy-check
-
-    - name: Run tests with coverage
-      run: |
-        make coverage
-
     - name: Run minimal installation test
       run: |
         # 创建一个临时目录用于测试
@@ -41,14 +33,21 @@ jobs:
         cd /tmp/minimal_test
         
         # 使用 uv 创建一个新环境并只安装项目的默认依赖
-        python -m uv venv --seed
-        source .venv/bin/activate
+        uv venv -p 3.10
         
         # 安装项目但不包含任何可选依赖
-        python -m uv pip install "$GITHUB_WORKSPACE/.[]."
+        uv pip install "$GITHUB_WORKSPACE/"
         
         # 测试导入和版本打印
-        python -c "import agentrun; print(f'Version: {agentrun.__version__}')"
+        uv run python -c "import agentrun; print(f'Version: {agentrun.__version__}')"
+
+    - name: Run type check (mypy)
+      run: |
+        make mypy-check
+
+    - name: Run tests with coverage
+      run: |
+        make coverage
 
     # 检测文件更改并决定是否构建测试包
     - name: Check for changes in agentrun directory
