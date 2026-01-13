@@ -6,7 +6,8 @@ This module defines the high-level API for model service resources.
 
 from typing import List, Optional
 
-from agentrun.model.api.data import BaseInfo, ModelCompletionAPI
+from agentrun.model.api.data import BaseInfo
+from agentrun.model.api.model_api import ModelAPI
 from agentrun.utils.config import Config
 from agentrun.utils.model import PageableInput
 from agentrun.utils.resource import ResourceBase
@@ -27,6 +28,7 @@ class ModelService(
     ModelServiceImmutableProps,
     ModelServiceMutableProps,
     ModelServicesSystemProps,
+    ModelAPI,
     ResourceBase,
 ):
     """模型服务"""
@@ -230,38 +232,3 @@ class ModelService(
             model=default_model,
             headers=cfg.get_headers(),
         )
-
-    def completions(
-        self,
-        messages: list,
-        model: Optional[str] = None,
-        stream: bool = False,
-        **kwargs,
-    ):
-        info = self.model_info(config=kwargs.get("config"))
-
-        m = ModelCompletionAPI(
-            api_key=info.api_key or "",
-            base_url=info.base_url or "",
-            model=model or info.model or self.model_service_name or "",
-        )
-
-        return m.completions(**kwargs, messages=messages, stream=stream)
-
-    def responses(
-        self,
-        messages: list,
-        model: Optional[str] = None,
-        stream: bool = False,
-        **kwargs,
-    ):
-        info = self.model_info(config=kwargs.get("config"))
-
-        m = ModelCompletionAPI(
-            api_key=info.api_key or "",
-            base_url=info.base_url or "",
-            model=model or info.model or self.model_service_name or "",
-            provider=(self.provider or "openai").lower(),
-        )
-
-        return m.responses(**kwargs, messages=messages, stream=stream)
