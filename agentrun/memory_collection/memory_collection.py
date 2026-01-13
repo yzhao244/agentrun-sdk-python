@@ -429,7 +429,7 @@ class MemoryCollection(
             >>> memory.add("用户喜欢吃苹果", user_id="user123")
         """
         try:
-            from mem0 import Memory
+            from agentrun_mem0 import Memory
         except ImportError as e:
             raise ImportError(
                 "agentrun-mem0ai package is required. Install it with: pip"
@@ -478,7 +478,7 @@ class MemoryCollection(
             >>> memory.add("用户喜欢吃苹果", user_id="user123")
         """
         try:
-            from mem0 import Memory
+            from agentrun_mem0 import Memory
         except ImportError as e:
             raise ImportError(
                 "agentrun-mem0ai package is required. Install it with: pip"

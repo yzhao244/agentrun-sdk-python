@@ -85,7 +85,7 @@ class MemoryCollectionClient:
         input: MemoryCollectionCreateInput,
         config: Optional[Config] = None,
     ):
-        """创建记忆集合(同步) / Create memory collection asynchronously
+        """创建记忆集合(同步) / Create memory collection synchronously
 
         Args:
             input: 记忆集合输入参数 / Memory collection input parameters
