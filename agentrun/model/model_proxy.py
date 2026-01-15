@@ -19,6 +19,7 @@ from typing import List, Optional
 import pydash
 
 from agentrun.model.api.data import BaseInfo, ModelDataAPI
+from agentrun.model.api.model_api import ModelAPI
 from agentrun.utils.config import Config
 from agentrun.utils.model import Status
 from agentrun.utils.resource import ResourceBase
@@ -40,6 +41,7 @@ class ModelProxy(
     ModelProxyImmutableProps,
     ModelProxyMutableProps,
     ModelProxySystemProps,
+    ModelAPI,
     ResourceBase,
 ):
     """模型服务"""
@@ -399,41 +401,3 @@ class ModelProxy(
         )
 
         return self._data_client.model_info()
-
-    def completions(
-        self,
-        messages: list,
-        model: Optional[str] = None,
-        stream: bool = False,
-        config: Optional[Config] = None,
-        **kwargs,
-    ):
-        self.model_info(config)
-        assert self._data_client
-
-        return self._data_client.completions(
-            **kwargs,
-            messages=messages,
-            model=model,
-            stream=stream,
-            config=config,
-        )
-
-    def responses(
-        self,
-        messages: list,
-        model: Optional[str] = None,
-        stream: bool = False,
-        config: Optional[Config] = None,
-        **kwargs,
-    ):
-        self.model_info(config)
-        assert self._data_client
-
-        return self._data_client.responses(
-            **kwargs,
-            messages=messages,
-            model=model,
-            stream=stream,
-            config=config,
-        )
